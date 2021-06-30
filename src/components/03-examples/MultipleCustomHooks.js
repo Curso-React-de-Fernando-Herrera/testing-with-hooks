@@ -7,10 +7,13 @@ import '../02-useEffect/effects.css';
 export const MultipleCustomHooks = () => {
 
     const { counter, increment } =  useCounter(1);
-    const { loading, data } = useFetch( `https://www.breakingbadapi.com/api/quotes/${ counter }` );
-    
+    const { loading, data, error } = useFetch( `https://www.breakingbadapi.com/api/quotes/${ counter }` );
+    console.log({ loading, data})
     const { author, quote } = !!data && data[0];
 
+    if(error === null) {
+        return <h1>{error}</h1>
+    }
 
     return (
         <div>

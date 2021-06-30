@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 
 
 export const useFetch = ( url ) => {
-    
+    console.log(url)
     const isMounted = useRef(true);
     const [state, setState] = useState({ data: null, loading: true, error: null });
 
@@ -14,8 +14,6 @@ export const useFetch = ( url ) => {
 
 
     useEffect( () => {
-
-        setState({ data: null, loading: true, error: null });
 
         fetch( url )
             .then( resp => resp.json() )
@@ -37,6 +35,8 @@ export const useFetch = ( url ) => {
                     error: 'No hay acceso'
                 }
             })
+
+        return () => setState({ data: null, loading: true, error: null });
 
     },[url])
 
