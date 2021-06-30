@@ -29,7 +29,14 @@ export const useFetch = ( url ) => {
                     });
                 }
 
-            });
+            })
+            .catch( () => {
+                return {
+                    data: null,
+                    loading: false,
+                    error: 'No hay acceso'
+                }
+            })
 
     },[url])
 
