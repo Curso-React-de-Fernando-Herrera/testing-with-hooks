@@ -24,4 +24,39 @@ describe('todoReducer component', () => {
     expect( state.length ).toBe( demoTodo.length + 1 )
   })
 
+  test('should be delete task for ID', () => {
+    const newTask = {
+      id: 3,
+      desc: 'Nueva task desde testing',
+      done: true
+    }
+
+    todoReducer( demoTodo, {
+      type: 'add',
+      payload: newTask
+    })
+
+    const state = todoReducer( demoTodo, {
+      type: 'delete',
+      payload: 3
+    })
+
+    expect( state.length ).toBe( demoTodo.length )
+    expect( state ).toEqual( demoTodo )
+    expect(
+      state.filter(({ id }) => id === 3)
+    ).toEqual([])
+  })
+
+  test('should be toggle done value on one task for ID', () => {
+    const state = todoReducer( demoTodo, {
+      type: 'toggle',
+      payload: 2
+    })
+
+    const [{ done }] = state.filter(({ id }) => id === 2)
+    
+    expect(done).toBe(true)
+  })
+
 })
